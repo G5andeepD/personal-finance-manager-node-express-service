@@ -3,6 +3,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { initializeDb } from './db/database.js';
+import incomeRoutes from './routes/incomeRoutes.js';
+import expenseRoutes from './routes/expenseRoutes.js';
+import summaryRoutes from './routes/summaryRoutes.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,7 +18,15 @@ initializeDb().then(() => {
   console.log('Database initialized');
 });
 
-// Placeholder routes
+// Base Path
+const basePath = '/api/v1';
+
+// Routes
+app.use(`${basePath}/income`, incomeRoutes);
+app.use(`${basePath}/expense`, expenseRoutes);
+app.use(`${basePath}/summary`, summaryRoutes);
+
+// Placeholder route for testing
 app.get('/', (req, res) => {
   res.send('Welcome to the Personal Finance Manager API');
 });
