@@ -1,0 +1,292 @@
+openapi: 3.0.3
+info:
+  title: Personal Finance Manager API
+  description: An API for managing personal finances, including income, expenses, and summaries.
+  version: 1.0.0
+tags:
+  - name: Income
+    description: Operations related to income entries
+  - name: Expense
+    description: Operations related to expense entries
+  - name: Summary
+    description: Operations related to financial summaries
+paths:
+  /income:
+    post:
+      tags:
+        - Income
+      summary: Add a new income entry
+      operationId: addIncome
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncomeRequest'
+      responses:
+        201:
+          description: Income entry created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncomeResponse'
+    get:
+      tags:
+        - Income
+      summary: Get all income entries
+      operationId: getAllIncomes
+      responses:
+        200:
+          description: A list of all income entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IncomeResponse'
+    put:
+      tags:
+        - Income
+      summary: Update an existing income entry
+      operationId: updateIncome
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncomeRequest'
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Income entry updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncomeResponse'
+    delete:
+      tags:
+        - Income
+      summary: Delete an existing income entry
+      operationId: deleteIncome
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Income entry deleted successfully
+
+  /income/{id}:
+    get:
+      tags:
+        - Income
+      summary: Get income entry by ID
+      operationId: getIncomeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Income entry retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncomeResponse'
+
+  /expense:
+    post:
+      tags:
+        - Expense
+      summary: Add a new expense entry
+      operationId: addExpense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+      responses:
+        201:
+          description: Expense entry created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+    get:
+      tags:
+        - Expense
+      summary: Get all expense entries
+      operationId: getAllExpenses
+      responses:
+        200:
+          description: A list of all expense entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpenseResponse'
+    put:
+      tags:
+        - Expense
+      summary: Update an existing expense entry
+      operationId: updateExpense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Expense entry updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+    delete:
+      tags:
+        - Expense
+      summary: Delete an existing expense entry
+      operationId: deleteExpense
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Expense entry deleted successfully
+
+  /expense/{id}:
+    get:
+      tags:
+        - Expense
+      summary: Get expense entry by ID
+      operationId: getExpenseById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Expense entry retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseResponse'
+
+  /summary:
+    get:
+      tags:
+        - Summary
+      summary: Get financial summary
+      operationId: getSummary
+      responses:
+        200:
+          description: Financial summary retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryResponse'
+
+components:
+  schemas:
+    IncomeRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The amount of income
+        source:
+          type: string
+          description: The source of income
+      required:
+        - amount
+        - source
+
+    ExpenseRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The amount of expense
+        category:
+          type: string
+          description: The category of the expense
+      required:
+        - amount
+        - category
+
+    IncomeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the income entry
+        amount:
+          type: number
+          format: double
+          description: The amount of income
+        source:
+          type: string
+          description: The source of income
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of when the income was recorded
+
+    ExpenseResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the expense entry
+        amount:
+          type: number
+          format: double
+          description: The amount of expense
+        category:
+          type: string
+          description: The category of the expense
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of when the expense was recorded
+
+    SummaryResponse:
+      type: object
+      properties:
+        totalIncome:
+          type: number
+          format: double
+          description: The total income recorded
+        totalExpenses:
+          type: number
+          format: double
+          description: The total expenses recorded
+        cashInHand:
+          type: number
+          format: double
+          description: The remaining cash in hand after all income and expenses
