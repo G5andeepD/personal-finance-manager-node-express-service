@@ -2,9 +2,15 @@ openapi: 3.0.3
 info:
   title: Personal Finance Manager API
   description: An API for managing personal finances, including income, expenses, and summaries.
+    license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
+externalDocs:
+  description: Choreo
+  url: https://choreo.dev
 servers:
-  - url: http://localhost:3000/api/v1
+  - url: http://localhost:8080/api/v1
     description: Local development server
 tags:
   - name: Income
