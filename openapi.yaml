@@ -10,7 +10,7 @@ externalDocs:
   description: Choreo
   url: https://choreo.dev
 servers:
-  - url: http://localhost:8080/api/v1
+  - url: http://localhost:8080
     description: Local development server
 tags:
   - name: Income
