@@ -11,7 +11,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // Middleware
 app.use(bodyParser.json());
@@ -30,9 +30,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const basePath = '/api/v1';
 
 // Routes
-app.use(`${basePath}/income`, incomeRoutes);
-app.use(`${basePath}/expense`, expenseRoutes);
-app.use(`${basePath}/summary`, summaryRoutes);
+app.use(`/income`, incomeRoutes);
+app.use(`/expense`, expenseRoutes);
+app.use(`/summary`, summaryRoutes);
 
 // Placeholder route for testing
 app.get('/', (req, res) => {
