@@ -4,7 +4,7 @@ import { openDb } from '../db/database.js';
 
 export async function getAllExpenses() {
   const db = await openDb();
-  return db.all('SELECT * FROM expense ORDER BY timestamp ASC');
+  return db.all('SELECT * FROM expense ORDER BY timestamp DESC');
 }
 
 export async function getExpenseById(id) {
