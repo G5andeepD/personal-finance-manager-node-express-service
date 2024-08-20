@@ -31,5 +31,4 @@ export async function initializeDb() {
     );
   `);
 
-  // Add other table creation queries if needed.
 }

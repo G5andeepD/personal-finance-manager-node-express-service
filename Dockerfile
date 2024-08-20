@@ -24,13 +24,6 @@ RUN npm ci --omit=dev
 # Copy the application source code
 COPY . .
 
-# Create a new user with UID 10014
-RUN addgroup -g 10014 choreo && \
-    adduser --disabled-password --no-create-home --uid 10014 --ingroup choreo choreouser
-
-# Set a non-root user
-USER 10014
-
 # Set the working directory for the application
 WORKDIR /usr/src/app/src
 
